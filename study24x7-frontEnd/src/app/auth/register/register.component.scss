@@ -1,0 +1,77 @@
+.registerDiv{
+    width: 444px;
+    margin-left: auto;
+    padding: 2px 20px;
+    box-shadow: 0px 4px 6px 2px grey;
+}
+.btn{
+    width: 198px;
+}
+.social-hr{
+    height: 1px;
+    background-color: rgb(231, 142, 142);
+}
+.or-hed{
+    display: flex;
+    justify-content: center;
+}
+.or{
+    text-align: center;
+    position: relative;
+    top: -30px;
+    background-color: white;
+    width: 30px;
+}
+.privacy-cnt{
+    font-size: 14px;
+    margin-top: 10px;
+}
+.signWith{
+    margin-top: 2px;
+    width: 145px;
+    margin-left: auto;
+    cursor: pointer;
+}
+.errorMsg{
+    position: relative;
+    top: -25px;
+    color: red;
+}
+.verifyOtp{
+    margin-top: -15px;
+}
+.verifyBtn{
+    margin-top: 15px;
+}
+.otp{
+    width: 58px;
+    margin-left: auto;
+    text-align: right;
+    position: relative;
+    top: 27px;
+}
+.resend{
+    cursor: pointer;
+}
+.mNumber{
+    background-color: rgb(211, 206, 206);
+    height: 35px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding-left: 4px;
+}
+.edit{
+    width: 38px;
+    text-align: center;
+    margin-left: auto;
+    position: relative;
+    top: -45px;
+    cursor: pointer;
+}
+.otp-div{
+    margin-top: -40px;
+}
+.createAccout{
+    margin-top: -30px;
+}
