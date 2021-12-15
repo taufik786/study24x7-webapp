@@ -59,22 +59,22 @@ export class AuthService {
       map((response) => {
         // console.log(response);
         const token = response.token;
-        // this.token = token;
-        // if (token) {
-        //   const expiresInDuration = response.expiresIn;
-        //   this.setAuthTimer(expiresInDuration);
-        //   this.isAuthenticated = true;
-        //   this.authStatusListener.next(true);
-        //   const now = new Date();
-        //   const expirationDate = new Date(
-        //     now.getTime() + expiresInDuration * 1000
-        //   );
-        //   this.saveAuthDate(token, expirationDate, response);
-        // }
+        this.token = token;
+        if (token) {
+          const expiresInDuration = response.expiresIn;
+          this.setAuthTimer(expiresInDuration);
+          this.isAuthenticated = true;
+          this.authStatusListener.next(true);
+          const now = new Date();
+          const expirationDate = new Date(
+            now.getTime() + expiresInDuration * 1000
+          );
+          this.saveAuthDate(token, expirationDate, response);
+          this.router.navigate(['/test']);
+        }
         if (response && response.token) {
           localStorage.setItem('currentUser', JSON.stringify(response));
           this.currentUserSubject.next(response);
-          this.router.navigate(['/test']);
         }
         return response;
       })
