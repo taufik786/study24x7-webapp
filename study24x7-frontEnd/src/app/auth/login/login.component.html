@@ -1,8 +1,21 @@
-<form class="input-group flex-nowrap pt-2">
-    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
-    <span>
-        <input type="text" class="form-control ml-2" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping">
+<form class="input-group flex-nowrap pt-2" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" formControlName="username" id="username">
+        <p class="username" *ngIf="!loginForm.controls['username'].value && loginForm.controls['username'].touched">Please enter valid username</p>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control ml-2" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping" formControlName="password" id="password">
         <a class="forget-pass">Forget Password?</a>
-    </span>
+    </div>
     <button class="btn btn-danger ml-2 px-3">Login</button>
 </form>
+
+<div *ngIf="errorDiv">
+  <div class="backdrop"></div>
+<div class="alert-box alertMsg">
+{{errMsg}}
+<div class="alert-box-actions text-right">
+  <button type="button" class='btn btn-primary' (click)="onCloseClick()">Okay</button>
+</div>
+</div>
+</div>

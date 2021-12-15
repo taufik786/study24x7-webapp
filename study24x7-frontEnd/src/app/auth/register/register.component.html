@@ -26,7 +26,7 @@
           />
           <p class="signWith" (click)="signupEmail()">Signup with Email</p>
         </div>
-        <button class="btn btn-danger mb-3" (click)="register(1)">Submit</button>
+        <button class="btn btn-danger mb-3" (click)="register(1)" [disabled]="!registerMobile.valid">Submit</button>
       </div>
       <div class="email-signup" *ngIf="emailSection" [formGroup]="registerEmail">
         <div>
@@ -42,7 +42,7 @@
           />
           <p class="signWith" (click)="signupMobile()">Signup with Mobile</p>
         </div>
-        <button class="btn btn-danger mb-3" (click)="register(2)">Submit</button>
+        <button class="btn btn-danger mb-3" (click)="register(2)" [disabled]="!registerEmail.valid">Submit</button>
       </div>
     </div>
 
@@ -82,15 +82,27 @@
           <!-- <p class="" *ngIf="!registerForm.get('name').valid && registerForm.get('name').touched">name error</p> -->
           <p class="alertMsg mb-0" *ngIf="!registerForm.controls['name'].valid && registerForm.controls['name'].touched">Please Enter Name</p>
         </div>
-        <div>
+        <div *ngIf="userEmail">
           <label class="form-label mt-2">Enter Email</label>
           <input
             class="form-control"
             type="text"
             placeholder="Enter name"
-            formControlName="email"
+            formControlName="userEmail"
+            id="userEmail"
           />
-          <p class="alertMsg mb-0" *ngIf="!registerForm.controls['email'].valid && registerForm.controls['email'].touched">Please Enter email Address</p>
+          <p class="alertMsg mb-0" *ngIf="!registerForm.controls['userEmail'].valid && registerForm.controls['userEmail'].touched">Please Enter email Address</p>
+        </div>
+        <div *ngIf="userMn">
+          <label class="form-label mt-2">Enter Mobile Number</label>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Enter mobile"
+            formControlName="userMn"
+            id="userMn"
+          />
+          <p class="alertMsg mb-0" *ngIf="!registerForm.controls['userMn'].valid && registerForm.controls['userMn'].touched">Please Enter valid mobile number</p>
         </div>
         <div>
           <label class="form-label mt-2">Enter Your Password</label>
@@ -104,7 +116,7 @@
           <p class="alertMsg mb-0" *ngIf="!registerForm.controls['password'].valid && registerForm.controls['password'].touched">Please Enter Password</p>
         </div>
         <button
-          class="btn btn-danger mt-3 mb-2 verifyOtp" type="submit">
+          class="btn btn-danger mt-3 mb-2 verifyOtp">
           Create Account
         </button>
       </form>

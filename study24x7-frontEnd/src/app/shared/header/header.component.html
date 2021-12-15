@@ -2,7 +2,7 @@
     <div class="container pl-0 pr-0">
         <nav class="navbar navbar-expand-md p-0 pr-0">
             <div class="container-fluid p-0 m-0">
-              <a class="navbar-brand" href="#">
+              <a class="navbar-brand" routerLink="/">
                   <img class="logo" src="../../../../assets/Logo.png" alt="Study24x7 Logo">
               </a>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -26,8 +26,14 @@
                 </ul>
               </div>
             </div>
-            <div>
+            <div *ngIf="!userAuthenticated">
                 <app-login></app-login>
+            </div>
+            <div *ngIf="userAuthenticated">
+              <button class="btn" (click)="onLogout()">Logout</button>
+            </div>
+            <div *ngIf="userAuthenticated">
+              <button class="btn" routerLink="/test">Test</button>
             </div>
           </nav>
     </div>

@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { SharedRoutingModule } from './shared-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { AuthModule } from '../auth/auth.module';
+import { ErrorMsgComponent } from './error-msg/error-msg.component';
 
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    ErrorMsgComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { AuthModule } from '../auth/auth.module';
     AuthModule
   ],
   exports : [
-    HeaderComponent
+    HeaderComponent,
+    ErrorMsgComponent
   ]
 })
 export class SharedModule { }
