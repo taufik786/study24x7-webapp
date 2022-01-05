@@ -9,11 +9,10 @@ import { AuthService } from '../auth/auth.service';
 export class TestComponent implements OnInit {
 
   constructor(private authService: AuthService) { }
-tt: any;
-  ngOnInit(): void {
-    this.tt = this.authService.currentUserValue;
-    console.log(this.tt,'tttt')
 
+  ngOnInit(): void {
+    // let auth = this.authService.getIsAuth();
+    // console.log(auth)
   }
 
 }

@@ -132,7 +132,7 @@ module.exports = {
             return res.status(401).json({message: 'Password Does not match'})
           } else {
             const token = jwt.sign({ data: user }, process.env.JWTSECRET, { expiresIn: "1h" });
-            return res.status(200).json({
+            res.status(200).json({
               message: 'Login successfully', user,
               token: token,
               expiresIn: 3600

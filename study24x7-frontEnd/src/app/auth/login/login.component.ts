@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
@@ -13,6 +13,9 @@ export class LoginComponent implements OnInit {
   errMsg: any;
   data: any;
   errorDiv = false;
+  user:any;
+
+@Output() userData: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private authService: AuthService,
@@ -43,17 +46,11 @@ export class LoginComponent implements OnInit {
         password: this.loginForm.value.password,
       };
     }
-    this.authService.Login(this.data).subscribe(
-      (res) => {
-        // if(!res.token === undefined && res.token !== '') {
-        // this.router.navigate(['/home/all']);
-        // }
-      },
-      (err) => {
-        this.errMsg = err.error.message;
-        this.errorDiv = true;
-      }
-    );
+    this.authService.Login(this.data).subscribe(res => {
+      this.user = res.user;
+      this.userData.emit(this.user)
+      // console.log(res,'login')
+    })
   }
 
   onCloseClick() {

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { SharedRoutingModule } from './shared-routing.module';
 import { HeaderComponent } from './header/header.component';
-import { AuthModule } from '../auth/auth.module';
 import { ErrorMsgComponent } from './error-msg/error-msg.component';
 
 
@@ -14,8 +13,7 @@ import { ErrorMsgComponent } from './error-msg/error-msg.component';
   ],
   imports: [
     CommonModule,
-    SharedRoutingModule,
-    AuthModule
+    SharedRoutingModule
   ],
   exports : [
     HeaderComponent,
