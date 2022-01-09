@@ -29,4 +29,7 @@ export class HomeComponent implements OnInit {
       console.log(event,'home')
       this.user = event;
     }
+    content1(e:any){
+console.log('sa',e)
+    }
 }
