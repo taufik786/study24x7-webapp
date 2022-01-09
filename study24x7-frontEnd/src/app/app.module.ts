@@ -8,8 +8,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { AuthModule } from './auth/auth.module';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 import { HomeAllModule } from './components/home-all/home-all.module';
+import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from './shared/shared.module';
 import { TestComponent } from './test/test.component';
@@ -18,7 +20,10 @@ import { TestComponent } from './test/test.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    TestComponent
+    TestComponent,
+    LoginComponent,
+    RegisterComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -28,15 +33,14 @@ import { TestComponent } from './test/test.component';
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AuthModule,
     HomeAllModule
   ],
   providers: [
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: AuthInterceptor,
-    //   multi: true,
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent]
 })

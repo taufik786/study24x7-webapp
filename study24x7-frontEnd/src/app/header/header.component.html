@@ -26,9 +26,13 @@
                 </ul>
               </div>
             </div>
-            <div *ngIf="!userAuthenticated">
-                <app-login></app-login>
+            <div  class="d-flex">
+              <button class="btn-auth btn btn-primary mr-3" (click)="loginBtn()">Login</button>
+              <button class="btn-auth btn btn-secondary">Sign Up</button>
             </div>
+            <!-- <div *ngIf="!userAuthenticated">
+                <app-login></app-login>
+            </div> -->
             <div *ngIf="userAuthenticated">
               <button class="btn" (click)="onLogout()">Logout</button>
             </div>
