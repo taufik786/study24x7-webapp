@@ -11,8 +11,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userAuthenticated = false;
   private authListenerSubs:any= Subscription;
   user: any;
-
-  constructor(private authService: AuthService) { }
+  ispopUpShow = false;
+  login = false;
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.userAuthenticated = this.authService.getIsAuth();
@@ -22,16 +23,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.userAuthenticated = isAuthenticated;
       });
 
-  }
+      // $('#myModal').on('shown.bs.modal', function () {
+      //   $('#myInput').trigger('focus')
+      // })
 
-  ngOnDestroy() {
-    this.authListenerSubs.unsubscribe();
   }
 
   onLogout(){
     this.authService.logout();
   }
   loginBtn(){
-    alert('login')
+    this.login = true;
+    // this.modalService.open(login);
+  }
+  signupBtn(signup:any){
+    // this.modalService.open(signup);
+  }
+  ClickedOut(event:any) {
+    //debugger;
+    if(event.target.className === "hover_bkgr_fricc") {
+      this.ispopUpShow = false;
+    }
+  }
+
+  ngOnDestroy() {
+    this.authListenerSubs.unsubscribe();
   }
 }

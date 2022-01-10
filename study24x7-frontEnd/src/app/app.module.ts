@@ -15,6 +15,7 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from './shared/shared.module';
 import { TestComponent } from './test/test.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TestComponent } from './test/test.component';
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HomeAllModule
+    HomeAllModule,
+    FontAwesomeModule
   ],
   providers: [
     {

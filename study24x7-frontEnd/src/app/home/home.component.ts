@@ -23,13 +23,10 @@ export class HomeComponent implements OnInit {
         this.userAuthenticated = isAuthenticated;
       });
 
-      
+
     }
     userDatas(event:any){
       console.log(event,'home')
       this.user = event;
-    }
-    content1(e:any){
-console.log('sa',e)
     }
 }
