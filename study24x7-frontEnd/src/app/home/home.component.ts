@@ -25,8 +25,4 @@ export class HomeComponent implements OnInit {
 
 
     }
-    userDatas(event:any){
-      console.log(event,'home')
-      this.user = event;
-    }
 }

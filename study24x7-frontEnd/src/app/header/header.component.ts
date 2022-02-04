@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-header',
@@ -12,8 +13,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private authListenerSubs:any= Subscription;
   user: any;
   ispopUpShow = false;
-  login = false;
-  constructor(private authService: AuthService) {}
+  closeResult = '';
+  constructor(private authService: AuthService,private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.userAuthenticated = this.authService.getIsAuth();
@@ -32,9 +33,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onLogout(){
     this.authService.logout();
   }
-  loginBtn(){
-    this.login = true;
-    // this.modalService.open(login);
+  loginBtn(login:any){
+    this.modalService.open(login);
   }
   signupBtn(signup:any){
     // this.modalService.open(signup);
@@ -44,6 +44,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if(event.target.className === "hover_bkgr_fricc") {
       this.ispopUpShow = false;
     }
+  }
+  popupDiv(event:any){
+
   }
 
   ngOnDestroy() {

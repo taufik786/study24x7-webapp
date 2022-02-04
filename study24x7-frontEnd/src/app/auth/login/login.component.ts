@@ -1,7 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -13,8 +12,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errMsg: any;
   data: any;
-  errorDiv = false;
   user:any;
+  alertDiv = false;
 
 @Output() userData: EventEmitter<any> = new EventEmitter();
   @ViewChild('content')
@@ -24,11 +23,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private router: Router,
-    config: NgbModalConfig, private modalService: NgbModal
   ) {
-    config.backdrop = 'static';
-    config.keyboard = false;
-    
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -43,7 +38,9 @@ export class LoginComponent implements OnInit {
       .value;
     let regex = /^([0-9]){3,10}$/;
     if(username === ''){
-      this.errorDiv = true;
+      this.alertDiv = true;
+      this.errMsg = 'Please Fill Right Credentials!'
+      return
     }
     if (username.match(regex)) {
       this.data = {
@@ -59,15 +56,14 @@ export class LoginComponent implements OnInit {
     this.authService.Login(this.data).subscribe(res => {
       this.user = res.user;
       this.userData.emit(this.user)
-      // console.log(res,'login')
+      console.log(res,'login')
+    }, error => {
+      this.alertDiv = true;
+      this.errMsg = error.error.message;
     })
   }
 
-  onCloseClick() {
-    this.errorDiv = false;
+  closeAlert(){
+    this.alertDiv = false;
   }
-
-  // open(content:any) {
-  //   this.modalService.open(content);
-  // }
 }
