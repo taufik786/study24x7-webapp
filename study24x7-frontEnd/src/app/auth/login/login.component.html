@@ -1,28 +1,36 @@
 
-<div class="">
+<div class="p-4" style="padding-top: 0 !important;">
   <div *ngIf="alertDiv" class="alert alert-danger alert-dismissible fade show" role="alert">
     <strong>Error!!</strong> {{errMsg}}
     <button class="btn-close" (click)="closeAlert()"><i class="far fa-times-circle"></i></button>
   </div>
   <div class="socialRegister">
-    <button class="btn btn-primary social-btn"><i class="fab fa-facebook"></i> Continue with facebook</button>
-    <button class="btn btn-success social-btn"><i class="fab fa-google"></i> Continue with email</button>
+    <app-social-login></app-social-login>
   </div>
   <hr class="hr">
   <p class="or">Or</p>
   <form class="loginForm" [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      <div class="form-floating mb-3">
-        <label for="username" class="form-label">Enter Email Addres / Mobile Number</label>
-        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" formControlName="username" id="username">
-          <p class="alertMsg" *ngIf="!loginForm.controls['username'].value && loginForm.controls['username'].touched">Please enter valid username</p>
+      <div class="form-group">
+        <div class="input-group mb-2 mr-sm-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-user-circle"></i></div>
+          </div>
+          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" formControlName="username" id="username">
+        </div>
+        <p class="alertMsg" *ngIf="!loginForm.controls['username'].value && loginForm.controls['username'].touched">Please enter valid username</p>
       </div>
-      <div class="form-floating">
-        <label for="password">Enter Password</label>
-        <input type="text" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping" formControlName="password" id="password">
+      <div class="form-group">
+        <div class="input-group mb-2 mr-sm-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-lock"></i></div>
+          </div>
+          <input type="text" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping" formControlName="password" id="password">
+        </div>
+        <p class="alertMsg" *ngIf="!loginForm.controls['password'].value && loginForm.controls['password'].touched">Please enter password</p>
       </div>
       <p class="forget-pass">Forget Password ?</p>
       <button class="btn btn-danger btn-block mt-3">Login</button>
-      <p class="mt-4 text-center">Don't Have Account ? <a class="signup">Sign Up</a></p>
+      <p class="mt-4 text-center">Don't Have Account ? <a class="signup" (click)="SignUp()">Sign Up</a></p>
   </form>
 </div>
 

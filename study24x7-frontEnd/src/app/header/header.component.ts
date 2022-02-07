@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -8,13 +15,19 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   userAuthenticated = false;
-  private authListenerSubs:any= Subscription;
+  private authListenerSubs: any = Subscription;
   user: any;
   ispopUpShow = false;
   closeResult = '';
-  constructor(private authService: AuthService,private modalService: NgbModal) {}
+  formTitle = '';
+  login = false;
+  @ViewChild('content') content!: ElementRef<any>;
+  constructor(
+    private authService: AuthService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.userAuthenticated = this.authService.getIsAuth();
@@ -23,30 +36,41 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((isAuthenticated) => {
         this.userAuthenticated = isAuthenticated;
       });
-
-      // $('#myModal').on('shown.bs.modal', function () {
-      //   $('#myInput').trigger('focus')
-      // })
-
+  }
+  ngAfterViewInit(): void {
+    // console.log(this.content, 'cccc');
   }
 
-  onLogout(){
+  onLogout() {
     this.authService.logout();
   }
-  loginBtn(login:any){
-    this.modalService.open(login);
+  loginBtn(auth: any, type: any) {
+    if (type === 1) {
+      this.formTitle = 'Login';
+      this.login = true;
+    } else if (type === 2) {
+      this.formTitle = 'Sign Up';
+      this.login = false;
+    }
+    this.modalService.open(auth);
   }
-  signupBtn(signup:any){
-    // this.modalService.open(signup);
-  }
-  ClickedOut(event:any) {
+
+  ClickedOut(event: any) {
     //debugger;
-    if(event.target.className === "hover_bkgr_fricc") {
+    if (event.target.className === 'hover_bkgr_fricc') {
       this.ispopUpShow = false;
     }
   }
-  popupDiv(event:any){
 
+  AuthLgn(event: any) {
+    this.login = event;
+    this.modalService.dismissAll(this.content);
+    this.loginBtn(this.content, 2);
+  }
+  LoginFls(event:any){
+    this.login = event;
+    this.modalService.dismissAll(this.content);
+    this.loginBtn(this.content, 1);
   }
 
   ngOnDestroy() {

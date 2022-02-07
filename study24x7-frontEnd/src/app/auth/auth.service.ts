@@ -28,16 +28,8 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
 
-  RegisterWith(body: any): Observable<any> {
-    return this.http.post<any>(`${userApi}/register`, body);
-  }
-
-  VerifyOtp(body: any): Observable<any> {
-    return this.http.post<any>(`${userApi}/verifyOtp`, body);
-  }
-
   CreateAccount(body: any): Observable<any> {
-    return this.http.post<any>(`${userApi}/createAccount`, body);
+    return this.http.post<any>(`${userApi}/register`, body);
   }
 
   Login(body: any) {
@@ -54,8 +46,8 @@ export class AuthService {
           now.getTime() + expiresInDuration * 1000
         );
         console.log(expirationDate);
-        this.saveAuthData(token, expirationDate);
-        this.router.navigate(["/"]);
+        this.saveAuthData(token, expirationDate, response);
+        this.router.navigate(["/home/all"]);
       } else {
         this.authStatusListener.next(false);
       }
@@ -95,25 +87,29 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date) {
+  private saveAuthData(token: string, expirationDate: Date, response:any) {
     localStorage.setItem("token", token);
     localStorage.setItem("expiration", expirationDate.toISOString());
+    localStorage.setItem('currentUser', JSON.stringify(response));
   }
 
   private clearAuthData() {
     localStorage.removeItem("token");
     localStorage.removeItem("expiration");
+    localStorage.removeItem("currentUser");
   }
 
   private getAuthData() {
     const token = localStorage.getItem("token");
     const expirationDate = localStorage.getItem("expiration");
-    if (!token || !expirationDate) {
+    const currentUser = localStorage.getItem("currentUser");
+    if (!token || !expirationDate || !currentUser) {
       return;
     }
     return {
       token: token,
-      expirationDate: new Date(expirationDate)
+      expirationDate: new Date(expirationDate),
+      currentUser: currentUser
     };
   }
 }

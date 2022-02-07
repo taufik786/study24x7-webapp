@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
         this.userAuthenticated = isAuthenticated;
       });
 
-
+//  let tt = this.authService.getLoggedUser()
+//  console.log(tt,'ppppp')
     }
 }

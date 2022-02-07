@@ -25,9 +25,9 @@
                 </ul>
               </div>
             </div>
-            <div  class="d-flex">
-              <button class="btn-auth btn btn-primary mr-3" (click)="loginBtn(content)">Login</button>
-              <button class="btn-auth btn btn-secondary">Sign Up</button>
+            <div  class="d-flex" *ngIf="!userAuthenticated">
+              <button class="btn-auth btn btn-primary mr-3" (click)="loginBtn(content,1)">Login</button>
+              <button class="btn-auth btn btn-secondary" (click)="loginBtn(content,2)">Sign Up</button>
             </div>
             <!-- <div *ngIf="!userAuthenticated">
                 <app-login></app-login>
@@ -43,12 +43,13 @@
 </div>
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Login</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{formTitle}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <app-login></app-login>
+    <app-login *ngIf="login" (authLgn)="AuthLgn($event)"></app-login>
+    <app-register *ngIf="!login" (loginFalse)="LoginFls($event)"></app-register>
   </div>
 </ng-template>

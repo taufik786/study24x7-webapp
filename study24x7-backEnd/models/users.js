@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
-const mobileSchema = mongoose.Schema({
-    mobile: { type: String, default: ''},
-    email: { type: String, default: '' },
+const userSchema = mongoose.Schema({
     name: { type: String, default: '' },
+    email: { type: String, default: '' },
+    phone: { type: String, default: ''},
     password: { type: String, default: '' },
-    otp: { type: String, },
-    created: { type:String, default: Date() }
+    isAdmin: { type: Boolean, default: false },
+    created: { type:String, default: Date() },
 });
 
-module.exports = mongoose.model('user', mobileSchema);
+module.exports = mongoose.model('user', userSchema);

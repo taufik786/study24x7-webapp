@@ -1,127 +1,73 @@
-<div class="registerDiv">
-    <h3 class="py-2">Get a free Account today !</h3>
-    <div class="socialRegister">
-      <button class="btn btn-primary">Continue with facebook</button>
-      <button class="btn btn-secondary ml-2">Continue with email</button>
-    </div>
-    <hr class="social-hr mt-4" />
-    <div class="or-hed">
-      <p class="or">or</p>
-    </div>
-    <div class="errorMsg">
-      <p *ngIf="alertMsg" class="m-0">{{errorMsg}}</p>
-    </div>
-    <div class="signup-main" *ngIf="signupMain">
-      <div class="mobile-signup" *ngIf="mobileSection" [formGroup]="registerMobile">
-        <div>
-          <p>Enter Your Mobile Number</p>
-          <input
-            class="form-control"
-            type="text"
-            id="mobileNum"
-            formControlName="mobile"
-            placeholder="Mobile number"
-            (keyup)="keyupFunc($event)"
-            value="{{editedMobile}}"
-          />
-          <p class="signWith" (click)="signupEmail()">Signup with Email</p>
-        </div>
-        <button class="btn btn-danger mb-3" (click)="register(1)" [disabled]="!registerMobile.valid">Submit</button>
-      </div>
-      <div class="email-signup" *ngIf="emailSection" [formGroup]="registerEmail">
-        <div>
-          <p>Enter Email Address</p>
-          <input
-            class="form-control"
-            type="text"
-            id="email"
-            formControlName="email"
-            placeholder="Email address"
-            (keyup)="keyupFunc($event)"
-            value="{{editeEmail}}"
-          />
-          <p class="signWith" (click)="signupMobile()">Signup with Mobile</p>
-        </div>
-        <button class="btn btn-danger mb-3" (click)="register(2)" [disabled]="!registerEmail.valid">Submit</button>
-      </div>
-    </div>
-
-    <div class="otp-section" *ngIf="otpSection" [formGroup]="otpVerify">
-      <div class="email-signup">
-        <p class="mb-1">OTP send on your mobile</p>
-        <p class="mNumber">{{userDetails}}</p>
-        <p class="edit" (click)="edit(userDetails)">Edit</p>
-        <div class="otp-div">
-          <p>Enter OTP</p>
-          <input
-            class="form-control"
-            type="text"
-            id="otp"
-            formControlName="otp"
-            placeholder="OTP"
-            (keyup)="keyupFunc($event)"
-          />
-          <p class="otp" *ngIf="mobileTimer"> {{timerShow}}</p>
-          <p class="otp resend" (click)="resendOtp()" *ngIf="resend">resend</p>
-        </div>
-      </div>
-      <button [ngClass]="{verifyBtn: !timerShow}" class="btn btn-danger mb-3 verifyOtp verifyBtn" (click)="verifyOtp()">
-        verify OTP
-      </button>
-    </div>
-    <div class="createAccout" *ngIf="createAccoutSec">
-      <form [formGroup]="registerForm" (ngSubmit)="createAccout()">
-        <div>
-          <label class="form-label mt-2">Enter Your Name</label>
-          <input
-            class="form-control"
-            type="text"
-            placeholder="Enter name"
-            formControlName="name"
-          />
-          <!-- <p class="" *ngIf="!registerForm.get('name').valid && registerForm.get('name').touched">name error</p> -->
-          <p class="alertMsg mb-0" *ngIf="!registerForm.controls['name'].valid && registerForm.controls['name'].touched">Please Enter Name</p>
-        </div>
-        <div *ngIf="userEmail">
-          <label class="form-label mt-2">Enter Email</label>
-          <input
-            class="form-control"
-            type="text"
-            placeholder="Enter name"
-            formControlName="userEmail"
-            id="userEmail"
-          />
-          <p class="alertMsg mb-0" *ngIf="!registerForm.controls['userEmail'].valid && registerForm.controls['userEmail'].touched">Please Enter email Address</p>
-        </div>
-        <div *ngIf="userMn">
-          <label class="form-label mt-2">Enter Mobile Number</label>
-          <input
-            class="form-control"
-            type="text"
-            placeholder="Enter mobile"
-            formControlName="userMn"
-            id="userMn"
-          />
-          <p class="alertMsg mb-0" *ngIf="!registerForm.controls['userMn'].valid && registerForm.controls['userMn'].touched">Please Enter valid mobile number</p>
-        </div>
-        <div>
-          <label class="form-label mt-2">Enter Your Password</label>
-          <input
-            class="form-control"
-            type="text"
-            placeholder="Enter name"
-            formControlName="password"
-            (keyup)="keyupFunc($event)"
-          />
-          <p class="alertMsg mb-0" *ngIf="!registerForm.controls['password'].valid && registerForm.controls['password'].touched">Please Enter Password</p>
-        </div>
-        <button
-          class="btn btn-danger mt-3 mb-2 verifyOtp">
-          Create Account
-        </button>
-      </form>
-    </div>
-    <p class="privacy-cnt">
-      By Registering, you agree to our Privacy Policy and Terms of use.
-    </p>
+<div class="registerDiv p-4" style="padding-top: 0 !important;">
+  <div *ngIf="alertMsg" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error!!</strong> {{errorMsg}}
+    <button class="btn-close" (click)="closeAlert()"><i class="far fa-times-circle"></i></button>
   </div>
+  <div class="socialRegister">
+    <app-social-login></app-social-login>
+  </div>
+  <hr class="social-hr mt-4" />
+  <div class="or-hed">
+    <p class="or">or</p>
+  </div>
+  <div class="createAccout">
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <div class="form-group">
+        <div class="input-group mb-2 mr-sm-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-user-circle"></i></div>
+          </div>
+          <input class="form-control col-11" type="text" placeholder="Enter Your Name" formControlName="name" />
+        </div>
+        <p class="alertMsg mb-0" *ngIf="!registerForm.controls['name'].valid && registerForm.controls['name'].touched">
+          Please Enter Name</p>
+      </div>
+      <div class="form-group">
+        <div class="input-group mb-2 mr-sm-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-envelope"></i></div>
+          </div>
+          <input class="form-control" type="text" placeholder="Enter Your Email" formControlName="email"/>
+        </div>
+        <p class="alertMsg mb-0"
+          *ngIf="!registerForm.controls['email'].valid && registerForm.controls['email'].touched">Please Enter
+          email Address</p>
+      </div>
+      <div class="form-group">
+        <div class="input-group mb-2 mr-sm-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-mobile-alt"></i></div>
+          </div>
+          <input class="form-control" type="text" placeholder="Enter Mobile Number" formControlName="phone"/>
+        </div>
+        <p class="alertMsg mb-0"
+        *ngIf="!registerForm.controls['phone'].valid && registerForm.controls['phone'].touched">Please Enter valid
+        mobile number</p>
+      </div>
+      <div class="form-group">
+        <div class="input-group mb-2 mr-sm-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-lock"></i></div>
+          </div>
+          <input class="form-control" type="text" placeholder="Enter Password" formControlName="password"/>
+        </div>
+        <p class="alertMsg mb-0"
+          *ngIf="!registerForm.controls['password'].valid && registerForm.controls['password'].touched">Please Enter Password</p>
+      </div>
+      <div class="form-group">
+        <div class="input-group mb-2 mr-sm-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><i class="fas fa-lock"></i></div>
+          </div>
+          <input class="form-control" type="text" placeholder="Confirm Password" formControlName="cpassword"/>
+        </div>
+        <p class="alertMsg mb-0"
+          *ngIf="!registerForm.controls['cpassword'].valid && registerForm.controls['cpassword'].touched">Please Enter Password</p>
+      </div>
+      <button class="btn btn-danger mt-3 mb-2 verifyOtp" style="width: 100%;">
+        Create Account
+      </button>
+      <p class="mt-4 text-center">Already Have an Account ? <a class="login" (click)="loginFls()">Login Here</a></p>
+    </form>
+  </div>
+</div>

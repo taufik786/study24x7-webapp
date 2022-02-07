@@ -1,7 +1,7 @@
-export interface AuthModel{
+export interface AuthData{
     name: string;
-    mobile: string;
     email: string;
+    phone: string;
     password: string;
     token: string;
 }
