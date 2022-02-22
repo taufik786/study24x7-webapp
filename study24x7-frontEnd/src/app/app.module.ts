@@ -6,26 +6,25 @@ import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthInterceptor } from './auth/auth.interceptor';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { HomeAllModule } from './components/home-all/home-all.module';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from './shared/shared.module';
-import { TestComponent } from './test/test.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SocialLoginComponent } from './auth/social-login/social-login.component';
+import { LiveComponent } from './components/live/live.component';
+import { AuthInterCeptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    TestComponent,
     LoginComponent,
     RegisterComponent,
     HeaderComponent,
     SocialLoginComponent,
+    LiveComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -34,16 +33,11 @@ import { SocialLoginComponent } from './auth/social-login/social-login.component
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HomeAllModule,
     NgbModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
-  ],
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterCeptor, multi: true },
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

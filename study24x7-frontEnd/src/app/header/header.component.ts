@@ -30,12 +30,9 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.userAuthenticated = this.authService.getIsAuth();
-    this.authListenerSubs = this.authService
-      .getAuthStatusListener()
-      .subscribe((isAuthenticated) => {
-        this.userAuthenticated = isAuthenticated;
-      });
+    this.authListenerSubs = this.authService.user.subscribe((res) => {
+      this.userAuthenticated = !!res;
+    });
   }
   ngAfterViewInit(): void {
     // console.log(this.content, 'cccc');
@@ -67,7 +64,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     this.modalService.dismissAll(this.content);
     this.loginBtn(this.content, 2);
   }
-  LoginFls(event:any){
+  LoginFls(event: any) {
     this.login = event;
     this.modalService.dismissAll(this.content);
     this.loginBtn(this.content, 1);

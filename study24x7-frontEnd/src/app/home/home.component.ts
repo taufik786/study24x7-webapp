@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 
@@ -13,17 +14,13 @@ export class HomeComponent implements OnInit {
   private authListenerSubs:any= Subscription;
   user: any;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.userAuthenticated = this.authService.getIsAuth();
-    this.authListenerSubs = this.authService
-      .getAuthStatusListener()
-      .subscribe((isAuthenticated) => {
-        this.userAuthenticated = isAuthenticated;
-      });
-
-//  let tt = this.authService.getLoggedUser()
-//  console.log(tt,'ppppp')
-    }
+    this.authService.user.subscribe(res => {
+      if(res) {
+        this.router.navigate(['/home/all'])
+      }
+    })
+  }
 }

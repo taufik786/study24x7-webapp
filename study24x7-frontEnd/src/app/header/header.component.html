@@ -1,11 +1,14 @@
-<div class="bg-light">
+<div class="bg-color">
     <div class="container pl-0 pr-0">
         <nav class="navbar navbar-expand-md p-0 pr-0">
             <div class="container-fluid p-0 m-0">
-              <a class="navbar-brand" routerLink="/">
+              <a class="navbar-brand" routerLink="/" *ngIf="!userAuthenticated">
                   <img class="logo" src="/assets/Logo.png" alt="Study24x7 Logo">
               </a>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <a class="navbar-brand" routerLink="/home/all" *ngIf="userAuthenticated">
+                  <img class="logo" src="/assets/Logo.png" alt="Study24x7 Logo">
+              </a>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="!userAuthenticated">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 pl-5">
                   <li class="nav-item interest-li"> INTERESTS <i class="fa fa-chevron-down"></i>
                       <ul class="sub-ul-list">
@@ -29,14 +32,11 @@
               <button class="btn-auth btn btn-primary mr-3" (click)="loginBtn(content,1)">Login</button>
               <button class="btn-auth btn btn-secondary" (click)="loginBtn(content,2)">Sign Up</button>
             </div>
-            <!-- <div *ngIf="!userAuthenticated">
-                <app-login></app-login>
-            </div> -->
             <div *ngIf="userAuthenticated">
               <button class="btn" (click)="onLogout()">Logout</button>
             </div>
             <div *ngIf="userAuthenticated">
-              <button class="btn" routerLink="/test">Test</button>
+              <button class="btn" routerLink="/profile">Profile</button>
             </div>
           </nav>
     </div>

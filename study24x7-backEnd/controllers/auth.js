@@ -34,11 +34,15 @@ module.exports = {
         });
         user.save().then((result) => {
           const token = jwt.sign({ data: result }, process.env.JWTSECRET, {
-            expiresIn: "1h",
+            expiresIn: "10d",
           });
-          res
-            .status(200)
-            .json({ message: "Account Created Successfully.", result, token });
+          res.status(200).json({
+            success: true,
+            message: "Account Created Successfully.",
+            USER_DATA: result,
+            token: token,
+            expiresIn: 10*24*60*60,
+          });
         });
       });
     }
@@ -73,16 +77,19 @@ module.exports = {
             } else if (!passMatch) {
               return res.status(402).json({
                 message: "Password Does Not Match.",
+                success: false,
               });
             } else {
               const token = jwt.sign({ data: user }, process.env.JWTSECRET, {
-                expiresIn: "1h",
+                expiresIn: "10d",
               });
+
               res.status(200).json({
+                success: true,
                 message: "Login Successfully Completed.",
-                user,
-                token,
-                expiresIn: 3600
+                USER_DATA: user,
+                token: token,
+                expiresIn: 10*24*60*60,
               });
             }
           }

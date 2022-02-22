@@ -1,0 +1,109 @@
+<div class="center-side-div mb-3">
+  <form (submit)="savePost(post)" #post="ngForm">
+    <div class="post mx-3">
+      <textarea ngModel #postInput="ngModel" name="post" class="postTxtArea" rows="3"
+        placeholder="Discuss Within Your Interest"></textarea>
+      <div class="d-flex hashtag-div">
+        <i class="fas fa-hashtag"></i>
+        <p class="hashtag">Add Hashtag</p>
+      </div>
+      <hr>
+      <div class="interest-section">
+        <i class="fas fa-plus"></i>
+        <a>Interest</a>
+      </div>
+      <hr>
+    </div>
+    <div class="post-type-div px-3">
+      <div class="post-type">
+        <p>Questions</p>
+        <p>Article</p>
+        <p>Attachment</p>
+      </div>
+      <div class="submit-type">
+        <div class="dropdown">
+          <p class="btn-secondary dropdown-toggle">
+            Public
+          </p>
+          <ul class="navbar-nav dropdown-post">
+            <li><a class="dropdown-item px-0">Public</a></li>
+            <li><a class="dropdown-item px-0">Private</a></li>
+            <li><a class="dropdown-item px-0">Connections</a></li>
+          </ul>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-danger ml-3">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<section class="center-side-div11111">
+  <div class="postData center-side-div" *ngFor="let post of postData;let i=index">
+    <div class="postHeader">
+      <div class="userProfile">
+        <div class="userPic">
+          <img class="userLogo" src="assets/jpg-icon/user.jpg" alt="username">
+        </div>
+        <div class="nameInfo">
+          <p>{{post.userName}}</p>
+          <p>{{dateFromNow(post.created)}}</p>
+        </div>
+      </div>
+      <div class="userProfile-right" (click)="showPopup($event,i)" #menuPopup>
+        <p><i class="fas fa-bookmark"></i></p>
+        <p><i class="fas fa-ellipsis-h"></i></p>
+      </div>
+      <div class="editPopup" id="popup_{{i}}" style="display: none;">
+        <div class="editpost">
+          <div>
+            <i class="fas fa-edit"></i>
+            <p class="edit">Edit</p>
+          </div>
+          <p>You can edit your post</p>
+        </div>
+        <div class="editpost">
+          <div>
+            <i class="fas fa-trash"></i>
+            <p class="delete">Delete</p>
+          </div>
+          <p>You can delete your post</p>
+        </div>
+        <div class="editpost">
+          <div>
+            <i class="fas fa-link"></i>
+            <p class="copyLink">Get a link</p>
+          </div>
+          <p>Click to copy</p>
+        </div>
+      </div>
+    </div>
+    <div class="postTxt mt-2">
+      <p>{{post.post}}</p>
+    </div>
+    <div class="interest">
+      <p>+Angular+</p>
+    </div>
+    <hr>
+    <div class="like-cmnt-share">
+      <div class="like" (click)="likedPost(post)" [ngClass]="(!checkInArray(post.likes, post.userId)) ? 'notLiked' : 'Liked'">
+        <i class="fas fa-heart"></i>
+        <p>like {{post.totalLikes}}</p>
+      </div>
+      <div class="comment">
+        <i class="fas fa-comments"></i>
+        <p>comment 10</p>
+      </div>
+      <div class="share">
+        <i class="fas fa-share"></i>
+        <p>sahre 10</p>
+      </div>
+    </div>
+    <hr>
+
+
+
+
+  </div>
+</section>

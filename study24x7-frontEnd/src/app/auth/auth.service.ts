@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
+import { AuthData } from './auth.model';
+import { User } from './user.modal';
 
 const userApi = 'http://127.0.0.1:5000/auth';
 
@@ -9,107 +11,119 @@ const userApi = 'http://127.0.0.1:5000/auth';
   providedIn: 'root',
 })
 export class AuthService {
-  private isAuthenticated = false;
-  private token: any;
-  private tokenTimer: any;
-  private authStatusListener = new Subject<boolean>();
+  user = new BehaviorSubject<User>(null!);
+  private tokenExpirationTimer: any;
+  private Token:any;
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getToken() {
-    return this.token;
-  }
-
-  getIsAuth() {
-    return this.isAuthenticated;
-  }
-
-  getAuthStatusListener() {
-    return this.authStatusListener.asObservable();
-  }
-
-  CreateAccount(body: any): Observable<any> {
-    return this.http.post<any>(`${userApi}/register`, body);
-  }
-
-  Login(body: any) {
-     return this.http.post<any>(`${userApi}/login`, body).pipe(map(response => {
-      const token = response.token;
-      this.token = token;
-      if (token) {
-        const expiresInDuration = response.expiresIn;
-        this.setAuthTimer(expiresInDuration);
-        this.isAuthenticated = true;
-        this.authStatusListener.next(true);
-        const now = new Date();
-        const expirationDate = new Date(
-          now.getTime() + expiresInDuration * 1000
+  CreateAccount(authData: AuthData) {
+    return this.http.post<any>(`${userApi}/register`, authData).pipe(
+      tap((resData) => {
+        this.handleAuthentication(
+          resData.USER_DATA.name,
+          resData.USER_DATA.email,
+          resData.USER_DATA.phone,
+          resData.USER_DATA.id,
+          resData.USER_DATA.isAdmin,
+          resData.token,
+          +resData.expiresIn
         );
-        console.log(expirationDate);
-        this.saveAuthData(token, expirationDate, response);
-        this.router.navigate(["/home/all"]);
-      } else {
-        this.authStatusListener.next(false);
-      }
-      return response;
-    }))
-
+      })
+    );
   }
 
-  autoAuthUser() {
-    const authInformation = this.getAuthData();
-    if (!authInformation) {
-      return;
-    }
-    const now = new Date();
-    const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
-    if (expiresIn > 0) {
-      this.token = authInformation.token;
-      this.isAuthenticated = true;
-      this.setAuthTimer(expiresIn / 1000);
-      this.authStatusListener.next(true);
-    }
+  Login(authData: AuthData) {
+    return this.http.post<any>(`${userApi}/login`, authData).pipe(
+      tap((resData) => {
+        this.handleAuthentication(
+          resData.USER_DATA.name,
+          resData.USER_DATA.email,
+          resData.USER_DATA.phone,
+          resData.USER_DATA._id,
+          resData.USER_DATA.isAdmin,
+          resData.token,
+          +resData.expiresIn
+        );
+      })
+    );
+  }
+
+  private handleAuthentication(
+    name: string,
+    email: string,
+    phone: string,
+    userId: string,
+    isAdmin: string,
+    token: string,
+    expiresIn: number
+  ) {
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    const user = new User(
+      name,
+      email,
+      phone,
+      userId,
+      isAdmin,
+      token,
+      expirationDate
+    );
+    this.Token = token
+    this.user.next(user);
+    this.autoLogout(expiresIn * 1000);
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 
   logout() {
-    this.token = null;
-    this.isAuthenticated = false;
-    this.authStatusListener.next(false);
-    clearTimeout(this.tokenTimer);
-    this.clearAuthData();
-    this.router.navigate(["/"]);
+    this.user.next(null!);
+    this.Token = null;
+    this.router.navigate(['/']);
+    localStorage.removeItem('userData');
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
   }
 
-  private setAuthTimer(duration: number) {
-    console.log("Setting timer: " + duration);
-    this.tokenTimer = setTimeout(() => {
-      this.logout();
-    }, duration * 1000);
-  }
-
-  private saveAuthData(token: string, expirationDate: Date, response:any) {
-    localStorage.setItem("token", token);
-    localStorage.setItem("expiration", expirationDate.toISOString());
-    localStorage.setItem('currentUser', JSON.stringify(response));
-  }
-
-  private clearAuthData() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("expiration");
-    localStorage.removeItem("currentUser");
-  }
-
-  private getAuthData() {
-    const token = localStorage.getItem("token");
-    const expirationDate = localStorage.getItem("expiration");
-    const currentUser = localStorage.getItem("currentUser");
-    if (!token || !expirationDate || !currentUser) {
+  autoLogin() {
+    const userData: {
+      name: string;
+      email: string;
+      phone: string;
+      userId: string;
+      isAdmin: string;
+      _token: string;
+      _tokenExpirationDate: string;
+    } = JSON.parse(localStorage.getItem('userData') as string);
+    if (!userData) {
       return;
     }
-    return {
-      token: token,
-      expirationDate: new Date(expirationDate),
-      currentUser: currentUser
-    };
+    this.Token = userData._token
+    const loadedUser = new User(
+      userData.name,
+      userData.email,
+      userData.phone,
+      userData.userId,
+      userData.isAdmin,
+      userData._token,
+      new Date(userData._tokenExpirationDate)
+    );
+    if (loadedUser.token) {
+      this.user.next(loadedUser);
+      const expirationDuration =
+        new Date(userData._tokenExpirationDate).getTime() -
+        new Date().getTime();
+      this.autoLogout(expirationDuration);
+    }
+  }
+
+  autoLogout(expirationDuration: number) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logout();
+    }, expirationDuration);
+  }
+
+  getToken(){
+    return this.Token;
   }
 }

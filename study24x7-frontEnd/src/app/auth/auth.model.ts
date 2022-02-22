@@ -3,5 +3,6 @@ export interface AuthData{
     email: string;
     phone: string;
     password: string;
-    token: string;
+    isAdmin: string;
+    token?: string;
 }

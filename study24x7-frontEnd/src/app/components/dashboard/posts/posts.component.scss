@@ -1,0 +1,190 @@
+.center-side-div {
+  background-color: white;
+  border-radius: 5px;
+}
+.postTxtArea{
+  width: 100%;
+  padding: 12px 0;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  resize: none;
+}
+.hashtag-div{
+  margin-bottom: -18px;
+}
+svg{
+  color: red;
+}
+.hashtag{
+  margin-top: -3px;
+  padding-left: 5px;
+}
+.interest-section{
+  font-size: 14px;
+  // padding: 12px 0;
+}
+.post-type-div{
+  padding-top: 10px;
+  padding-bottom: 7px;
+}
+.post-type-div,.post-type,.submit-type{
+  display: flex;
+  justify-content: space-between;
+}
+.post-type p,.btn-secondary {
+  border: 1px solid grey;
+  padding: 0;
+  margin: 0 5px;
+  padding: 6px 8px;
+  border-radius: 25px;
+  background-color: white;
+  height: 35px;
+  color: black;
+}
+.post-type p:first-child{
+  margin-left: 0;
+}
+.post-type-div{
+  background-color: #d9d9d9;
+}
+.dropdown-post{
+  position: absolute;
+  display: none;
+  background-color: gainsboro;
+}
+.dropdown:hover .dropdown-post{
+  display: block;
+}
+
+.postData{
+  padding: 12px;
+  margin-bottom: 15px;
+}
+.postHeader{
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+.userLogo {
+  width: 45px;
+  border-radius: 50%;
+  height: 45px;
+}
+.userProfile{
+  display: flex;
+}
+.nameInfo{
+  margin-left: 8px;
+  margin-top: 5px;
+}
+.nameInfo p {
+  padding: 0;
+  margin: 0;
+  line-height: normal;
+  cursor: pointer;
+}
+.nameInfo p:last-child{
+  font-size: 14px;
+  color: grey;
+}
+.nameInfo p:hover{
+  text-decoration: underline;
+}
+.userProfile-right{
+  display: flex;
+  user-select: none;
+}
+.userProfile-right p:last-child{
+  margin: 5px 12px 0 12px;
+  cursor: pointer;
+}
+.userProfile-right p:first-child{
+  border-radius: 50%;
+  padding: 4px;
+  width: 30px;
+  text-align: center;
+  box-shadow: 0px 1px 2px 0px grey;
+  cursor: pointer;
+}
+.userProfile-right p svg{
+  color: black;
+  font-size: 18px;
+}
+.interest p{
+  background-color: gainsboro;
+  width: 85px;
+  border-radius: 25px;
+  text-align: center;
+}
+.like-cmnt-share{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px 0;
+}
+.like-cmnt-share p{
+  margin: 0;
+  padding: 0 5px;
+  color: #898989;
+}
+.like-cmnt-share svg{
+  color: #898989;
+}
+
+.like,.comment,.share{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.like:hover svg, .comment:hover svg, .share:hover svg{
+  color: red;
+}
+.like:hover p, .comment:hover p, .share:hover p{
+  color: red;
+}
+
+hr{
+  // margin: 0;
+  padding: 0;
+}
+.editPopup{
+  position: absolute;
+  right: 11px;
+  top: 35px;
+  box-shadow: 0px 2px 6px 0px grey;
+  border-radius: 5px;
+  background-color: white;
+}
+.editpost{
+  border-bottom: 2px solid grey;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.editpost:hover{
+  background-color: gainsboro;
+}
+.editpost:last-child{
+  border-bottom: none;
+}
+.editpost div{
+  display: flex;
+  margin-bottom: -20px;
+  font-size: 14px;
+}
+.editpost>p:last-child{
+  color: grey;
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.edit,.delete,.copyLink{
+  padding-left: 8px;
+  margin-top: -2px;
+}
+.Liked p{
+  color: rgb(251, 108, 82);
+}
+.notLiked p {
+  color: gray;
+}

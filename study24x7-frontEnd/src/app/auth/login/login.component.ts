@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -23,15 +24,15 @@ export class LoginComponent implements OnInit {
   user: any;
   alertDiv = false;
 
-  @ViewChild('content')
-  content!: ElementRef;
+  @ViewChild('content') content!: ElementRef;
   @Input() authLogin: any;
   @Output() authLgn: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -41,7 +42,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onLogin() {
-    console.log(this.loginForm.value)
+    setTimeout(() => {
+      this.alertDiv = false;
+    }, 3000);
     if (this.loginForm.invalid) {
       this.alertDiv = true;
       this.errMsg = 'Please Fill Right Credentials!';
@@ -49,8 +52,9 @@ export class LoginComponent implements OnInit {
     }
     this.authService.Login(this.loginForm.value).subscribe(
       (res) => {
-        this.user = res.user;
-        // console.log(res, 'login');
+        console.log(res, 'login');
+        this.modalService.dismissAll(this.content);
+        this.router.navigate(['/home/all']);
       },
       (error) => {
         // console.log(error,'eeee')
