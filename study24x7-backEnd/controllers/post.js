@@ -72,6 +72,7 @@ module.exports = {
       }
     )
       .then((result) => {
+        console.log(result);
         return res.status(200).json({
           message: "Post Liked Successfully",
           result,
