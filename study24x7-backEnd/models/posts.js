@@ -17,7 +17,7 @@ const postSchema = mongoose.Schema({
     {
       userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
       name: { type: String, ref: "User" },
-      commnet: { type: String },
+      comment: { type: String, default: "" },
       commentedAt: { type: String, default: Date() },
     },
   ],
