@@ -13,7 +13,7 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'home',
+    path: '',
     loadChildren: () =>
       import('./components/dashboard/dashboaard.module').then(
         (m) => m.DashboardModule

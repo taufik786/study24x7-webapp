@@ -1,0 +1,112 @@
+.like-cmnt-share {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px 0;
+}
+.like-cmnt-share p {
+  margin: 0;
+  padding: 0 5px;
+  color: #898989;
+}
+.like-cmnt-share svg {
+  color: #898989;
+}
+
+.like,
+.comment,
+.share {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.like:hover svg,
+.comment:hover svg,
+.share:hover svg {
+  color: red;
+}
+.like:hover p,
+.comment:hover p,
+.share:hover p {
+  color: red;
+}
+
+hr {
+  margin: 0;
+  padding: 0;
+}
+.Liked p {
+  color: rgb(251, 108, 82);
+}
+.Liked svg {
+  color: rgb(251, 108, 82);
+}
+.notLiked p {
+  color: gray;
+}
+
+.userLogo {
+  width: 45px;
+  border-radius: 50%;
+  height: 45px;
+}
+.comment-box {
+  display: flex;
+  background-color: #d3d3d3;
+  padding: 5px 12px;
+  position: relative;
+  flex-direction: column;
+}
+.comment-txt {
+  width: 90%;
+  margin-left: auto;
+  padding: 3px 0;
+}
+.editableDiv {
+  width: 96%;
+  padding: 8px;
+  margin-left: 8px;
+  outline: none;
+  border: none;
+  border-radius: 20px;
+  padding-left: 12px;
+  background-color: white;
+}
+[data-placeholder]:empty:before {
+  content: attr(data-placeholder);
+  color: #888;
+  font-style: italic;
+}
+.userLogo-cmnt {
+  position: absolute;
+  top: 10px;
+}
+.btn-Post {
+  position: absolute;
+  right: 21px;
+  bottom: 0;
+}
+.commnet-list {
+  background-color: whitesmoke;
+  margin-top: 9px;
+  border-radius: 5px;
+  display: flex;
+  padding: 13px 12px 0px 12px;
+}
+.cmnt-user-pic > img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+.commnet-list .cmnt-txt {
+  background-color: ghostwhite;
+  border-radius: 5px;
+  margin-left: 10px;
+  padding-left: 5px;
+  width: 100%;
+}
+.cmnt-main {
+  // border: 1px solid #b1b0b0;
+  border-radius: 7px;
+  box-shadow: 0px 10px 8px -5px grey;
+}

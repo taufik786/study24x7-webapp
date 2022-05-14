@@ -1,9 +1,18 @@
+.center-post{
+  width: 94%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .center-side-div {
   background-color: white;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  width: 94%;
+  margin-left: auto;
+  margin-right: auto;
 }
-.postTxtArea {
+.postTxtArea{
   width: 100%;
   padding: 12px 0;
   font-size: 15px;
@@ -12,32 +21,29 @@
   border-radius: 5px;
   resize: none;
 }
-.hashtag-div {
+.hashtag-div{
   margin-bottom: -18px;
 }
-svg {
+svg{
   color: red;
 }
-.hashtag {
+.hashtag{
   margin-top: -3px;
   padding-left: 5px;
 }
-.interest-section {
+.interest-section{
   font-size: 14px;
   // padding: 12px 0;
 }
-.post-type-div {
+.post-type-div{
   padding-top: 10px;
   padding-bottom: 7px;
 }
-.post-type-div,
-.post-type,
-.submit-type {
+.post-type-div,.post-type,.submit-type{
   display: flex;
   justify-content: space-between;
 }
-.post-type p,
-.btn-secondary {
+.post-type p,.btn-secondary {
   border: 1px solid grey;
   padding: 0;
   margin: 0 5px;
@@ -47,29 +53,28 @@ svg {
   height: 35px;
   color: black;
 }
-.post-type p:first-child {
+.post-type p:first-child{
   margin-left: 0;
 }
-.post-type-div {
+.post-type-div{
   background-color: #d9d9d9;
 }
-.dropdown-post {
+.dropdown-post{
   position: absolute;
   display: none;
   background-color: gainsboro;
 }
-.dropdown:hover .dropdown-post {
+.dropdown:hover .dropdown-post{
   display: block;
 }
 
-.postData {
+.postData{
   padding: 12px;
-  // margin-bottom: 15px;
 }
-.center-side-div11111 {
+.center-side-div11111{
   margin-bottom: 15px;
 }
-.postHeader {
+.postHeader{
   display: flex;
   justify-content: space-between;
   position: relative;
@@ -79,10 +84,10 @@ svg {
   border-radius: 50%;
   height: 45px;
 }
-.userProfile {
+.userProfile{
   display: flex;
 }
-.nameInfo {
+.nameInfo{
   margin-left: 8px;
   margin-top: 5px;
 }
@@ -92,22 +97,20 @@ svg {
   line-height: normal;
   cursor: pointer;
 }
-.nameInfo p:last-child {
+.nameInfo p:last-child{
   font-size: 14px;
   color: grey;
+  cursor: auto;
 }
-.nameInfo p:hover {
-  text-decoration: underline;
-}
-.userProfile-right {
+.userProfile-right{
   display: flex;
   user-select: none;
 }
-.userProfile-right p:last-child {
+.userProfile-right p:last-child{
   margin: 5px 12px 0 12px;
   cursor: pointer;
 }
-.userProfile-right p:first-child {
+.userProfile-right p:first-child{
   border-radius: 50%;
   padding: 4px;
   width: 30px;
@@ -115,18 +118,22 @@ svg {
   box-shadow: 0px 1px 2px 0px grey;
   cursor: pointer;
 }
-.userProfile-right p svg {
+.userProfile-right p svg{
   color: black;
   font-size: 18px;
 }
-.interest p {
+.interest p{
   background-color: gainsboro;
   width: 85px;
   border-radius: 25px;
   text-align: center;
 }
 
-.editPopup {
+hr{
+  margin: 0;
+  padding: 0;
+}
+.editPopup{
   position: absolute;
   right: 11px;
   top: 35px;
@@ -134,30 +141,28 @@ svg {
   border-radius: 5px;
   background-color: white;
 }
-.editpost {
+.editpost{
   border-bottom: 2px solid grey;
   padding: 8px 12px;
   cursor: pointer;
 }
-.editpost:hover {
+.editpost:hover{
   background-color: gainsboro;
 }
-.editpost:last-child {
+.editpost:last-child{
   border-bottom: none;
 }
-.editpost div {
+.editpost div{
   display: flex;
   margin-bottom: -20px;
   font-size: 14px;
 }
-.editpost > p:last-child {
+.editpost>p:last-child{
   color: grey;
   font-size: 12px;
   margin-bottom: 0;
 }
-.edit,
-.delete,
-.copyLink {
+.edit,.delete,.copyLink{
   padding-left: 8px;
   margin-top: -2px;
 }

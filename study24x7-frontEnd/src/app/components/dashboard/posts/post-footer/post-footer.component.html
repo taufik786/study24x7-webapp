@@ -1,0 +1,52 @@
+<div class="post-footer">
+  <div style="background-color: white;">
+    <hr>
+    <div class="like-cmnt-share">
+      <div class="like" (click)="likedPost(post, 'like')" *ngIf="!checkInArray(post.likes, loggedUser)">
+        <i class="fas fa-heart"></i>
+        <p>like {{post.totalLikes > 0 ? post.totalLikes: ''}}</p>
+      </div>
+      <div class="like" (click)="likedPost(post, 'dislike')" *ngIf="checkInArray(post.likes, loggedUser)"
+        [ngClass]="(checkInArray(post.likes, loggedUser)) ? 'Liked' : 'notLiked'">
+        <i class="fas fa-heart"></i>
+        <p>liked {{post.totalLikes}}</p>
+      </div>
+      <div class="comment">
+        <i class="fas fa-comments"></i>
+        <p>comment {{post.totalComments}}</p>
+      </div>
+      <div class="share">
+        <i class="fas fa-share"></i>
+        <p>sahre 10</p>
+      </div>
+    </div>
+  </div>
+  <div class="comment-box py-2">
+    <div>
+      <div class="userPic">
+        <img class="userLogo userLogo-cmnt" src="assets/jpg-icon/user.jpg" alt="username">
+      </div>
+      <div class="comment-txt">
+        <div type="text" (keyup)="editableComment($event.target)" id="comment_{{post._id}}" contenteditable="true"
+          class="editableDiv" data-placeholder="Write your comment"></div>
+        <div style="position: relative;">
+          <button *ngIf="postBtn" type="button" class="btn btn-primary btn-Post"
+            (click)="comment(post._id)">Post</button>
+        </div>
+      </div>
+    </div>
+    <ng-container>
+      <div class="cmnt-main">
+        <div class="comment-div" *ngFor="let cmntPost of post.comments">
+          <div class="commnet-list" *ngIf="cmntPost.comment.length > 1">
+            <div class="cmnt-user-pic">
+              <img src="assets/jpg-icon/user.jpg" alt="">
+            </div>
+            <p class="cmnt-txt"><span style="margin-right: 9px;">{{cmntPost.name}}</span><span
+                [innerText]="cmntPost.comment"></span></p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

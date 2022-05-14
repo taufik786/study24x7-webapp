@@ -3,14 +3,15 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
-  selector: 'app-home-all',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  selector: 'app-left-panel',
+  templateUrl: './left-panel.component.html',
+  styleUrls: ['./left-panel.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
-  user: any;
-  userSubs!: Subscription
-  constructor(private authService: AuthService) {}
+export class LeftPanelComponent implements OnInit, OnDestroy {
+
+  user:any;
+  userSubs!: Subscription;
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     this.userSubs = this.authService.user.subscribe(res => {
@@ -24,4 +25,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
       this.userSubs.unsubscribe();
   }
+
 }

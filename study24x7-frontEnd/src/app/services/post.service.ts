@@ -20,4 +20,15 @@ export class PostService {
   AddLike(body: any): Observable<any> {
     return this.http.post<any>(postUrl + '/add-like', body);
   }
+  DisLike(body: any): Observable<any> {
+    return this.http.post<any>(postUrl + '/dis-like', body);
+  }
+
+  SinglePost(id:any):Observable<any>{
+    return this.http.get<any>(postUrl+ '/singlePost/'+id)
+  }
+
+  CommentPost(body:any):Observable<any>{
+    return this.http.post<any>(postUrl+'/add-comment',body);
+  }
 }

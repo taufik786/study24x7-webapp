@@ -1,6 +1,6 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
@@ -31,6 +31,7 @@ import { AuthInterCeptor } from './auth/auth.interceptor';
     AppRoutingModule,
     SharedModule,
     RouterModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule

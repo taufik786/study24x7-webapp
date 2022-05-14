@@ -1,0 +1,63 @@
+<div class="container py-3">
+  <div class="p-0" style="display: flex;">
+    <div class="left-panel">
+      <app-left-panel></app-left-panel>
+    </div>
+    <div class="center-post">
+      <section class="center-side-div11111">
+        <div class="postData center-side-div">
+          <div class="postHeader">
+            <div class="userProfile">
+              <div class="userPic">
+                <img class="userLogo" src="assets/jpg-icon/user.jpg" alt="username">
+              </div>
+              <div class="nameInfo">
+                <p>{{postData.userName}}</p>
+                <p>{{dateFromNow(postData.created)}}</p>
+              </div>
+            </div>
+            <div class="userProfile-right">
+              <p><i class="fas fa-bookmark"></i></p>
+              <p (click)="showPopup()"><i class="fas fa-ellipsis-h"></i></p>
+            </div>
+            <div class="editPopup" *ngIf="popup">
+              <div class="editpost">
+                <div>
+                  <i class="fas fa-edit"></i>
+                  <p class="edit">Edit</p>
+                </div>
+                <p>You can edit your post</p>
+              </div>
+              <div class="editpost">
+                <div>
+                  <i class="fas fa-trash"></i>
+                  <p class="delete">Delete</p>
+                </div>
+                <p>You can delete your post</p>
+              </div>
+              <div class="editpost">
+                <div>
+                  <i class="fas fa-link"></i>
+                  <p class="copyLink">Get a link</p>
+                </div>
+                <p>Click to copy</p>
+              </div>
+            </div>
+          </div>
+          <div class="postTxt mt-2">
+            <p>{{postData.post}}</p>
+          </div>
+          <div class="interest">
+            <p>+Angular+</p>
+          </div>
+        </div>
+        <div style="width: 94%;margin: auto;">
+          <app-post-footer [post]="postData" (allPostCall)="allPostCall($event)"></app-post-footer>
+        </div>
+      </section>
+    </div>
+    <div>
+      <app-right-panel></app-right-panel>
+    </div>
+  </div>
+</div>

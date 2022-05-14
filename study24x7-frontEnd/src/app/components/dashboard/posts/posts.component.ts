@@ -7,10 +7,13 @@ import {
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
+
+import { AuthService } from 'src/app/auth/auth.service';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
-  selector: 'app-wall',
+  selector: 'app-posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss'],
 })
@@ -18,13 +21,24 @@ export class PostsComponent implements OnInit, AfterViewInit {
   postData: any = [];
   popup = false;
   @ViewChild('menuPopup', { static: false }) menuPopup!: ElementRef<any>;
+  loggedUser: any;
 
-  constructor(private postService: PostService) {}
+  constructor(
+    private postService: PostService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.authService.user.subscribe((res) => {
+      this.loggedUser = res.userId;
+    });
     this.allPost();
   }
 
+  allPostCall(event:any){
+    this.allPost();
+  }
   savePost(post: NgForm) {
     this.postService.createPost(post.value).subscribe(
       (res) => {
@@ -41,7 +55,6 @@ export class PostsComponent implements OnInit, AfterViewInit {
     this.postService.AllPosts().subscribe(
       (res) => {
         this.postData = res.result;
-        console.log(res);
       },
       (err) => {
         console.log(err);
@@ -67,27 +80,16 @@ export class PostsComponent implements OnInit, AfterViewInit {
       popupId.style.display = 'none';
     }
   }
-
-  likedPost(post:any){
-    console.log(post,'pppp')
-    const userData = {
-      id: post._id,
-      name: post.userName
+  singlePostRoute(post: any) {
+    let postTitleUrl = '';
+    const postTitle = post.post.split(' ');
+    for (let i = 0; i < postTitle.length; i++) {
+      postTitleUrl += postTitle[i].trim() + '-';
     }
-    this.postService.AddLike(userData).subscribe(res => {
-      console.log(res,'rrrr')
-    })
-  }
-
-  checkInArray(arr:any, userId:any){
-    for (let i = 0; i < arr.length; i++) {
-      console.log(arr[i].userId);
-      if(arr[i].userId === userId) {
-
-      }
-
-    }
-    return arr
-    // console.log(arr,'aaa',userId)
+    postTitleUrl = postTitleUrl
+      .replace(/[,'".\s+]/g, '')
+      .slice(0, -1)
+      .toLowerCase();
+    this.router.navigate(['/post/' + post._id + '/' + postTitleUrl]);
   }
 }
