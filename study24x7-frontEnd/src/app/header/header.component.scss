@@ -1,4 +1,4 @@
-.bg-color{
+.bg-color {
   background-color: #ffffff;
   box-shadow: 0px -4px 6px 1px;
   position: fixed;
@@ -55,11 +55,53 @@ li {
 .govt-sub-ul > li {
   list-style: none;
 }
-.govt-sub-ul > li > a {
-}
 .sub-ul-list .govt-li:hover > .govt-sub-ul {
   display: block;
 }
 .btn-auth {
   width: 90px;
+}
+
+.search-box {
+  margin: auto;
+  width: 30%;
+  position: relative;
+}
+.search-box-input {
+  width: 100%;
+  background-color: #ebebeb;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  outline: none;
+  font-family: sans-serif;
+}
+.search-result-all {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: #676565a6;
+  bottom: 0;
+  top: 53px;
+}
+.search-result {
+  background-color: #ffffff;
+  width: 25%;
+  margin: auto;
+  box-shadow: 0px 8px 12px 2px gainsboro;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+.txt-not-found{
+  text-align: center;
+  padding: 25px;
+}
+.search-result-data{
+  padding: 12px;
+  margin: 0;
+  cursor: pointer;
+}
+.search-result-data:hover{
+  background-color: grey;
+  color: whitesmoke;
 }

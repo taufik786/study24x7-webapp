@@ -1,4 +1,4 @@
-<div class="bg-color">
+<div class="bg-color" (click)="closePopUpSearchbox($event)">
     <div class="container pl-0 pr-0">
         <nav class="navbar navbar-expand-md p-0 pr-0">
             <div class="container-fluid p-0 m-0">
@@ -8,6 +8,20 @@
               <a class="navbar-brand" routerLink="/home/all" *ngIf="userAuthenticated">
                   <img class="logo" src="/assets/Logo.png" alt="Study24x7 Logo">
               </a>
+              <div class="search-box">
+                <input type="text" (keyup)="searchBox($event)" (click)="searchBocTouched()" [(ngModel)]="searchText" class="search-box-input" id="search-box-input" placeholder="Search Your Posts!">
+                <div class="search-result-all" id="search-result-all" *ngIf="searchResultAll">
+                  <div class="search-result">
+                    <div *ngIf="isSearchData">
+                      <p class="search-result-data" id="search-result-data" *ngFor="let search of allSearchedData">{{search.post | sliceText:'46'}}</p>
+                    </div>
+                    <div *ngIf="isNotFound">
+                      <!-- <img src="/assets/png-icon/404-not-found.png" alt="404" width="100%"> -->
+                      <h3 class="txt-not-found">{{noSearchData}}</h3>
+                    </div>
+                </div>
+                </div>
+              </div>
               <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="!userAuthenticated">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 pl-5">
                   <li class="nav-item interest-li"> INTERESTS <i class="fa fa-chevron-down"></i>

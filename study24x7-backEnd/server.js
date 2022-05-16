@@ -33,8 +33,10 @@ app.get("/", (req, res) => {
 
 const authRoute = require("./routes/authRoute");
 const postRoute = require("./routes/postRoute");
+const searchRoute = require("./routes/searchRoute");
 app.use("/auth", authRoute);
 app.use("/post", postRoute);
+app.use("/search", searchRoute);
 
 app.listen(port, () => {
   console.success(`Server running on http://127.0.0.1:${port}`);

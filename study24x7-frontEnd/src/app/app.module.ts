@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SocialLoginComponent } from './auth/social-login/social-login.component';
 import { LiveComponent } from './components/live/live.component';
 import { AuthInterCeptor } from './auth/auth.interceptor';
+import { TextLenghtPipe } from './pipes/text-length.pipe';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AuthInterCeptor } from './auth/auth.interceptor';
     HeaderComponent,
     SocialLoginComponent,
     LiveComponent,
+    TextLenghtPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
